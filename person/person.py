@@ -1,9 +1,12 @@
+""" import module path
 print(__name__)
+"""
 
 from sensors.handler.sensorHandler import SensorHandler
 from videos.handler.videoHandler import VideoHandler
-import os
+from resources.resource import resources_config
 import threading
+import os
 
 class Person:
     """
@@ -13,19 +16,21 @@ class Person:
         self.threadManager = []
         self.ip = ip
         self.port = port
-        self.videoUS = VideoHandler("US")
-        """
+        self.filelist = resources_config["files"]
+        #self.videoUS = VideoHandler("US")
         self.sensorHR = SensorHandler('HR')
         self.sensorBP = SensorHandler('BP')
         self.sensorPO = SensorHandler('PO')
         self.sensorFT = SensorHandler('FT')
-        """
+
 
     def wearSensors(self):
-        self.ID = threading.current_thread().ident
-        #dirname = os.path.dirname(__file__)
-        filepath = '/home/martai/healthcare_benchmark/resources/car_video.mp4'
-        threadUS = threading.Thread(target=self.videoUS.play, args=(self.ID, self.ip, self.port, filepath))
+        # old version multithreading
+        #self.ID = threading.current_thread().ident
+        # new version multiprocessor
+        self.ID = os.getpid()
+        """
+        threadUS = threading.Thread(target=self.videoUS.play, args=(self.ID, self.ip, self.port, self.filelist))
         self.threadManager.append(threadUS)
         """
         threadHR = threading.Thread(target=self.sensorHR.execute, args=(self.ID, 5, self.ip, self.port,))
@@ -36,9 +41,10 @@ class Person:
         self.threadManager.append(threadBP)
         self.threadManager.append(threadPO)
         self.threadManager.append(threadFT)
-        """
 
-    def operate(self):
+
+    def operate(self, _):
+        print(os.getpid())
         self.wearSensors()
         for t in self.threadManager:
             t.start()

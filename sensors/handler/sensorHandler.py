@@ -20,5 +20,5 @@ class SensorHandler:
             logging.error("Error connection exception...")
         finally:
             #logging.info("sensorhandler finishes to run")
-            time.sleep(20)
+            time.sleep(5)
             self.sensorHandler.close()
