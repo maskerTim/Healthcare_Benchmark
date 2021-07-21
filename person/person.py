@@ -17,20 +17,21 @@ class Person:
         self.ip = ip
         self.port = port
         self.filelist = resources_config["files"]
-        #self.videoUS = VideoHandler("US")
+        self.videoUS = VideoHandler("US")
+        """
         self.sensorHR = SensorHandler('HR')
         self.sensorBP = SensorHandler('BP')
         self.sensorPO = SensorHandler('PO')
         self.sensorFT = SensorHandler('FT')
-
+        """
 
     def wearSensors(self):
         # old version multithreading
         #self.ID = threading.current_thread().ident
         # new version multiprocessor
         self.ID = os.getpid()
-        """
-        threadUS = threading.Thread(target=self.videoUS.play, args=(self.ID, self.ip, self.port, self.filelist))
+        self.videoUS.openAndRecordVideo(resources_config["files"][0])
+        threadUS = threading.Thread(target=self.videoUS.play, args=(self.ID, self.ip, self.port))
         self.threadManager.append(threadUS)
         """
         threadHR = threading.Thread(target=self.sensorHR.execute, args=(self.ID, 5, self.ip, self.port,))
@@ -41,7 +42,7 @@ class Person:
         self.threadManager.append(threadBP)
         self.threadManager.append(threadPO)
         self.threadManager.append(threadFT)
-
+        """
 
     def operate(self, _):
         print(os.getpid())

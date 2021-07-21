@@ -3,7 +3,7 @@ import logging
 import time
 import pickle
 import struct
-import threading
+import datetime
 
 class VideoHandler:
     """
@@ -12,28 +12,35 @@ class VideoHandler:
     def __init__(self, video="US"):
         self.videoHandler = VideoFactory(video)
 
-    def play(self, ID, ip, port, filelist, type='file'):
-        try:
-            # connect the server/host
-            self.videoHandler.connect(ip, port)
-            # open the video resource
-            for file in filelist:
-                threading.Thread(target=self.playingbyvolumn, args=(ID, file, type)).start()
-
-        except Exception as e:
-            logging.error(e)
-            #logging.error("Error connection exception...")
-        finally:
-            time.sleep(3)
-            self.videoHandler.close()
-            logging.info("video is closed...")
-
-    def playingbyvolumn(self, ID, file, type):
-        cap = self.videoHandler.open(ID, type, file)
+    """ Open the video and Record it"""
+    def openAndRecordVideo(self, file, type="file"):
+        start = datetime.datetime.now()
+        cap = self.videoHandler.open(file, type)
         while True:
             flag, frame = cap.read()
             if flag:
                 frame = pickle.dumps(frame)
                 p = struct.pack('I', len(frame))
                 frame = p + frame
-                self.videoHandler.sendall(frame)
+                self.videoHandler.recordVideo(frame)
+            # break down the recording video
+            end = datetime.datetime.now()
+            if (end-start).seconds > 30:
+                break
+
+    """ Play the video """
+    def play(self, ID, ip, port):
+        try:
+            # set process ID as identification
+            self.videoHandler.setID(ID)
+            # connect the server/host
+            self.videoHandler.connect(ip, port)
+            # play the video
+            for f in self.videoHandler.frames:
+                self.videoHandler.sendall(f)
+        except Exception as e:
+            logging.error("Error: {}".format(e))
+        finally:
+            time.sleep(3)
+            self.videoHandler.close()
+            logging.info("Video is closed...")

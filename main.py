@@ -5,13 +5,15 @@ print(sys.path)
 
 from configs import logConfig
 from person.manager.personManager import PersonManager
+from videos.handler.videoHandler import VideoHandler
+from resources.resource import resources_config
 
 if __name__ == '__main__':
     logConfig.config()
-    PM1 = PersonManager(100, "192.168.0.99", 9999)
-    PM2 = PersonManager(100, "192.168.0.99", 9999)
+    PM1 = PersonManager(3, "192.168.100.60", 9998)
+    #PM2 = PersonManager(30, "192.168.100.60", 9998)
     PM1.start()
-    PM2.start()
+    #PM2.start()
     #PM3 = PersonManager(1, "192.168.0.99", 9999)
     #PM3.start()
     print('Main Finish')

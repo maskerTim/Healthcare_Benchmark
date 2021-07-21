@@ -7,24 +7,28 @@ class Video:
     def __init__(self):
         self.ID = None
         self.ip = ""
-        self.cap = None
         self.port = 0
+        self.cap = None
         self.socket = None
+        self.frames = []
 
-    """ monitor the video streaming"""
-    def open(self, ID, type, filepath):
+    def setID(self, ID):
         self.ID = ID
+
+    """ open the video streaming"""
+    def open(self, filepath, type):
         self.openVideoFile(filepath)
-        print('hello')
         return self.cap
 
     def openVideoFile(self, filepath):
         # open the video file
-        print(filepath)
         cap = cv2.VideoCapture(filepath)
         # get the position/index of frame in this video
         pos_frame = cap.get(cv2.CAP_PROP_POS_FRAMES)
         self.cap = cap
+
+    def recordVideo(self, frame):
+        self.frames.append(frame)
 
     """ 
         the network functionalities
