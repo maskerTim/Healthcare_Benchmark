@@ -1,5 +1,5 @@
 from .video import Video
 
-class Ultrasound(Video):
+class Camera(Video):
     """ read the video streaming """
     pass

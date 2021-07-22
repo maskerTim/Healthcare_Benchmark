@@ -16,8 +16,6 @@ class Person:
         self.threadManager = []
         self.ip = ip
         self.port = port
-        self.filelist = resources_config["files"]
-        self.videoUS = VideoHandler("US")
         """
         self.sensorHR = SensorHandler('HR')
         self.sensorBP = SensorHandler('BP')
@@ -30,8 +28,6 @@ class Person:
         #self.ID = threading.current_thread().ident
         # new version multiprocessor
         self.ID = os.getpid()
-        self.videoUS.openAndRecordVideo(resources_config["files"][0])
-        threadUS = threading.Thread(target=self.videoUS.play, args=(self.ID, self.ip, self.port))
         self.threadManager.append(threadUS)
         """
         threadHR = threading.Thread(target=self.sensorHR.execute, args=(self.ID, 5, self.ip, self.port,))

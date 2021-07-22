@@ -15,10 +15,11 @@ class Video:
     def setID(self, ID):
         self.ID = ID
 
-    """ open the video streaming"""
-    def open(self, filepath, type):
-        self.openVideoFile(filepath)
-        return self.cap
+
+    # """ open the video streaming"""
+    # def open(self, filepath, type):
+    #     self.openVideoFile(filepath)
+    #     return self.cap
 
     def openVideoFile(self, filepath):
         # open the video file
@@ -39,9 +40,11 @@ class Video:
     def connect(self, ip, port):
         self.socket = socketClient.createSocket()
         self.socket.connect((ip, port))
+        logging.info("succeed to connect to {}:{}".format(ip, port))
 
     def close(self):
         self.socket.close()
+        logging.info("close the connection")
 
     def sendall(self, frame):
         self.socket.sendall(frame)

@@ -1,8 +1,8 @@
-from .models.ultrasound import Ultrasound
+from .models.camera import Camera
 
 def VideoFactory(video):
-    """ Factory for making sensors """
+    """ Factory for making video gadgets """
     videos = {
-        "US": Ultrasound()
+        "CAM": Camera()
     }
     return videos[video]
