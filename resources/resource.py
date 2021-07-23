@@ -1,10 +1,24 @@
+import logging
 import os
 
-def getResources():
+video_resolution = {
+    "HD1080": os.path.join(os.path.dirname(__file__), 'HD1080'),
+    "HD720": os.path.join(os.path.dirname(__file__), 'HD720')
+}
+
+def getResources(resolution="HD1080"):
     fileend = [".mp4"]
-    dirpath = os.path.dirname(__file__)
+    dirpath = video_resolution[resolution]
+    logging.info("Resource Path:{}, Resolution:{}".format(dirpath, resolution))
     return [os.path.join(dirpath, _) for _ in os.listdir(dirpath) if os.path.splitext(_)[1] in fileend]
 
-resources_config = {
-    "files": getResources()
+def getModel():
+    fileend = [".xml"]
+    dirpath = os.path.join(os.path.dirname(__file__))
+    logging.info("Model Path:{}".format(dirpath))
+    return [os.path.join(dirpath, _) for _ in os.listdir(dirpath) if os.path.splitext(_)[1] in fileend]
+
+resources_configs = {
+    "files": getResources,
+    "models": getModel
 }

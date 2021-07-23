@@ -8,8 +8,10 @@ import struct
 import datetime
 import cv2
 import logging
+from resources.resource import resources_configs
 
 class VideoHandler:
+    cars_cascade = cv2.CascadeClassifier(resources_configs["models"]()[0])
     """
     Create some video for healthcare by factory and Operate it
     """
@@ -38,10 +40,21 @@ class VideoHandler:
     #         logging.error(e)
     #     logging.info("finish to record")
 
+    """ open the video """
     @classmethod
     def open(cls, filepath):
         return cv2.VideoCapture(filepath)
 
+    """ detect the car per video frame """
+    @classmethod
+    def detectCar(cls, frame):
+        car_count = 0
+        cars = cls.cars_cascade.detectMultiScale(frame, 1.15, 4)
+        for _ in cars:
+            car_count+=1
+        return car_count
+
+    """ Network Functionalities """
     def connectTo(self, ip, port):
         try:
             self.videoHandler.setID(threading.get_ident())

@@ -4,7 +4,6 @@ print(__name__)
 
 from sensors.handler.sensorHandler import SensorHandler
 from videos.handler.videoHandler import VideoHandler
-from resources.resource import resources_config
 import threading
 import os
 
@@ -28,7 +27,6 @@ class Person:
         #self.ID = threading.current_thread().ident
         # new version multiprocessor
         self.ID = os.getpid()
-        self.threadManager.append(threadUS)
         """
         threadHR = threading.Thread(target=self.sensorHR.execute, args=(self.ID, 5, self.ip, self.port,))
         threadBP = threading.Thread(target=self.sensorBP.execute, args=(self.ID, 3, self.ip, self.port,))

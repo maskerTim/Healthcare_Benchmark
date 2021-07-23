@@ -1,17 +1,18 @@
 import threading
 from ..handler.videoHandler import VideoHandler
-from resources.resource import resources_config
+from resources.resource import resources_configs
 import logging
 import pickle
 import struct
 
 class VideoManager(threading.Thread):
     """ Manager the video"""
-    def __init__(self, number=1, ip="0.0.0.0", port=9999):
+    def __init__(self, number=1, ip="0.0.0.0", port=9999, resolution="HD1080"):
         threading.Thread.__init__(self)
         self.ip = ip
         self.port = port
         self.number = number
+        self.resolution = resolution
         self.videos = []
         self.threadManager = []
 
@@ -34,9 +35,10 @@ class VideoManager(threading.Thread):
             v.connectTo(self.ip, self.port)
 
     def run(self):
+        payloadSize = 'I'
         self.createVideos()
         logging.info("open the video...")
-        cap = VideoHandler.open(resources_config["files"][0])
+        cap = VideoHandler.open(resources_configs["files"](self.resolution)[0])
         logging.info("connect the server/host")
         self.connect()
         try:
@@ -45,8 +47,10 @@ class VideoManager(threading.Thread):
                 flag, frame = cap.read()
                 if flag:
                     no_flag_count = 0
+                    car_count = VideoHandler.detectCar(frame)
+                    logging.info("car count:{}".format(car_count))
                     frame = pickle.dumps(frame)
-                    p = struct.pack('I', len(frame))
+                    p = struct.pack(payloadSize, len(frame))
                     frame = p + frame
                     for v in self.videos:
                         t = threading.Thread(target=v.sendAll, args=(frame,))
@@ -60,6 +64,7 @@ class VideoManager(threading.Thread):
                     break
             logging.info("Finish to send the video")
         except Exception as e:
+            logging.error("send error...maybe connection is broken or other fault occurs")
             logging.error(e)
         finally:
             for v in self.videos:
