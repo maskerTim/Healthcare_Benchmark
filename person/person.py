@@ -23,6 +23,7 @@ class Person:
         """
 
     def wearSensors(self):
+        """ attaches the sensors on person """
         # old version multithreading
         #self.ID = threading.current_thread().ident
         # new version multiprocessor
@@ -39,6 +40,7 @@ class Person:
         """
 
     def operate(self, _):
+        """ running the sensor instances """
         print(os.getpid())
         self.wearSensors()
         for t in self.threadManager:

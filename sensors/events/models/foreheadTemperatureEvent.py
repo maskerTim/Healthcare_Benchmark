@@ -3,6 +3,6 @@ from .event import Event
 
 class ForeheadTemperatureEvent(Event):
     """
-    define the heart rate event schema
+    define the forehead temperature event schema
     """
     pass

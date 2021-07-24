@@ -3,6 +3,6 @@ from .event import Event
 
 class BloodPressureEvent(Event):
     """
-    define the heart rate event schema
+    define the blood pressure event schema
     """
     pass

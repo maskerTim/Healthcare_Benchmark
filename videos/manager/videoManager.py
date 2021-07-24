@@ -6,7 +6,7 @@ import pickle
 import struct
 
 class VideoManager(threading.Thread):
-    """ Manager the video"""
+    """ Manager the video instances"""
     def __init__(self, number=1, ip="0.0.0.0", port=9999, resolution="HD1080"):
         threading.Thread.__init__(self)
         self.ip = ip
@@ -25,16 +25,19 @@ class VideoManager(threading.Thread):
     #     logging.info("Finish to record")
 
     def createVideos(self):
+        """ create the video instances """
         for _ in range(self.number):
             videoUS = VideoHandler('CAM')
             self.videos.append(videoUS)
         logging.info('Succeed to create videos')
 
     def connect(self):
+        """ connect to remote server/host """
         for v in self.videos:
             v.connectTo(self.ip, self.port)
 
     def run(self):
+        """ playing the video and send to remote server/host """
         payloadSize = 'I'
         self.createVideos()
         logging.info("open the video...")

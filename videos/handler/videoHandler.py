@@ -11,13 +11,14 @@ import logging
 from resources.resource import resources_configs
 
 class VideoHandler:
+    # config the classifier model for detecting car
     cars_cascade = cv2.CascadeClassifier(resources_configs["models"]()[0])
-    """
-    Create some video for healthcare by factory and Operate it
-    """
+
     def __init__(self, video="CAM"):
+        """ Create some video for healthcare by factory and Operate it """
         self.videoHandler = VideoFactory(video)
 
+    """ @Deprecated Code, later will clean it"""
     # """ Open the video and Record it"""
     # def openAndRecordVideo(self, file, type="file"):
     #     start = datetime.datetime.now()
@@ -40,22 +41,33 @@ class VideoHandler:
     #         logging.error(e)
     #     logging.info("finish to record")
 
-    """ open the video """
     @classmethod
     def open(cls, filepath):
+        """ open the video
+        @param {filepath: the file path}
+        @return the video capture IO handler
+        """
         return cv2.VideoCapture(filepath)
 
-    """ detect the car per video frame """
     @classmethod
     def detectCar(cls, frame):
+        """ detect the car per video frame
+        @param {frame: the video frame}
+        @return the number of car in this frame
+        """
         car_count = 0
         cars = cls.cars_cascade.detectMultiScale(frame, 1.15, 4)
         for _ in cars:
             car_count+=1
         return car_count
 
-    """ Network Functionalities """
     def connectTo(self, ip, port):
+        """ Network Functionalities
+        connectTo:
+            @param {ip: ip address, port: port number}
+            @desc connect to the remote server/host
+            @err {...}
+        """
         try:
             self.videoHandler.setID(threading.get_ident())
             self.videoHandler.connect(ip, port)
@@ -63,11 +75,21 @@ class VideoHandler:
             logging.error("Error: {}".format(e))
 
     def sendAll(self, frame):
+        """ Network Functionalities
+        sendAll:
+            @param {frame: the video frame}
+            @desc send the video frame
+        """
         self.videoHandler.sendall(frame)
 
     def close(self):
+        """ Network Functionalities
+        close:
+            @desc close the connection
+        """
         self.videoHandler.close()
 
+    """ @Deprecated Code, later will clean it"""
     # """ Play the video """
     # def play(self, ip, port):
     #     try:

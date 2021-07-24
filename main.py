@@ -9,8 +9,9 @@ from videos.manager.videoManager import VideoManager
 from resources.resource import resources_configs
 
 if __name__ == '__main__':
+    """ the entry point of program """
     logConfig.config()
-    VM1 = VideoManager(1, "192.168.100.60", 9998, "HD720")
+    VM1 = VideoManager(3, "192.168.0.99", 9998, "HD720")
     VM1.start()
     #PM1 = PersonManager(3, "192.168.100.60", 9998)
     #PM2 = PersonManager(30, "192.168.100.60", 9998)

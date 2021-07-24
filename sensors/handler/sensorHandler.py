@@ -10,6 +10,21 @@ class SensorHandler:
         self.sensorHandler = SensorFactory(sensor)
 
     def execute(self, ID, sleep, ip, port, seed=0.7, period=4, format='json'):
+        """ running the senser instances
+        @param {
+            ID: Identification of which person wears,
+            sleep: interval time to read
+            ip: ip address
+            port: port number
+            @deprecated seed: the probability between normal and abnormal
+                @default 0.7
+            period: how many round it executes
+                @default 4
+            format: the event format it finally sends
+                @default json
+        @err error to connect
+        }
+        """
         try:
             self.sensorHandler.connect(ip, port)
             for _ in range(period):

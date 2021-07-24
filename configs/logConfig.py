@@ -1,5 +1,6 @@
 import logging
 
+""" logging configuration """
 def config(filename='log.txt'):
     logger = logging.getLogger()
     logger.setLevel(logging.DEBUG)

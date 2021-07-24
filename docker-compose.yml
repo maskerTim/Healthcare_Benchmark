@@ -1,0 +1,26 @@
+version: "2"
+services:
+  h1:
+    image: maskertim/healthcare_benchmark:1.0
+    container_name: host1
+    stdin_open: true
+    tty: true
+    command: /bin/bash
+    volumes:
+      - "/home/maskertim/Healthcare_Benchmark:/project"
+    networks:
+      - network-1
+  h2:
+    image: maskertim/healthcare_benchmark:1.0
+    container_name: host2
+    stdin_open: true
+    tty: true
+    command: /bin/bash
+    volumes:
+      - "/home/maskertim/Healthcare_Benchmark:/project"
+    networks:
+      - network-1
+networks:
+  network-1:
+    external:
+      name: n1

@@ -9,6 +9,13 @@ class HeartRate(Sensor):
     """ Operation of Heart Rate """
 
     def read(self, ID, sleep, seed):
+        """ simulate to read the value
+        @param {
+            ID: identification of which person wears
+            sleep: interval time to read
+            @deprecated seed: the probability between normal and abnormal
+        }
+        """
         # normal range of heartbeat
         time.sleep(sleep)
         #logging.info("Heart Rate read per {}...".format(sleep))
@@ -16,6 +23,11 @@ class HeartRate(Sensor):
         self.value = random.randint(60, 80)
 
     def makeEvent(self, format):
+        """ make the event to send out
+        @param {
+            format: the event format
+        }
+        """
         self.event = HeartRateEvent({
             "ID": self.ID,
             "startTime": datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S.%f"),

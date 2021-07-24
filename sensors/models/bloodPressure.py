@@ -9,6 +9,13 @@ class BloodPressure(Sensor):
     """ Operation of Blood Pressure """
 
     def read(self, ID, sleep, seed):
+        """ simulate to read the value
+        @param {
+            ID: identification of which person wears
+            sleep: interval time to read
+            @deprecated seed: the probability between normal and abnormal
+        }
+        """
         # normal blood pressure
         time.sleep(sleep)
         #logging.info("Blood Pressure read per {}...".format(sleep))
@@ -18,6 +25,11 @@ class BloodPressure(Sensor):
         self.value = "{}/{}".format(systolic, diastolic)
 
     def makeEvent(self, format):
+        """ make the event to send out
+        @param {
+            format: the event format
+        }
+        """
         self.event = BloodPressureEvent({
             "ID": self.ID,
             "startTime": datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S.%f"),

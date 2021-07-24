@@ -17,15 +17,17 @@ class PersonManager(threading.Thread):
         self.pool = Pool(os.cpu_count())
         self.port = port
 
-    """ multithreading version for creating the person instance"""
     def createPerson(self):
+        """ multithreading version for creating the person instance"""
         for _ in range(self.number):
             self.people.append(threading.Thread(target=Person(self.ip, self.port).operate, args=()))
 
     def getPeople(self):
+        """ get the all person instances """
         return self.people
 
     def run(self):
+        """ running all person instances """
         # multiprocessing version
         [self.pool.apply_async(Person(self.ip, self.port).operate, args=(_, )) for _ in range(self.number)]
         self.pool.close()
