@@ -17,7 +17,7 @@ class PulseOximeter(Sensor):
         }
         """
         # normal range of heartbeat
-        time.sleep(sleep)
+        #time.sleep(sleep)
         #logging.info("Pulse Oximeter read per {}...".format(sleep))
         self.ID = ID
         self.value = random.randint(95, 100)

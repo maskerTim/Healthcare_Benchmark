@@ -17,7 +17,7 @@ class HeartRate(Sensor):
         }
         """
         # normal range of heartbeat
-        time.sleep(sleep)
+        #time.sleep(sleep)
         #logging.info("Heart Rate read per {}...".format(sleep))
         self.ID = ID
         self.value = random.randint(60, 80)

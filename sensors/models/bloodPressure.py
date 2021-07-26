@@ -17,7 +17,7 @@ class BloodPressure(Sensor):
         }
         """
         # normal blood pressure
-        time.sleep(sleep)
+        #time.sleep(sleep)
         #logging.info("Blood Pressure read per {}...".format(sleep))
         systolic = random.randint(90, 120)
         diastolic = random.randint(60, 80)

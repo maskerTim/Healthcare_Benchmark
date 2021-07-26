@@ -17,7 +17,7 @@ class ForeheadTemperature(Sensor):
         }
         """
         # normal blood pressure
-        time.sleep(sleep)
+        #time.sleep(sleep)
         #logging.info("Temperature read per {}...".format(sleep))
         temperature = random.uniform(35.4, 37.4)
         self.ID = ID
