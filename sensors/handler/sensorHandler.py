@@ -30,16 +30,16 @@ class SensorHandler:
         try:
             lock.acquire()
             logging.info("{}, Take the lock".format(ID))
-            self.sensorHandler.connect(ip, port)
+            self.sensorHandler.connect(ip, port, "mqttPub")
             self.sensorHandler.read(ID, sleep, seed)
             self.sensorHandler.makeEvent(format)
-            self.sensorHandler.send()
+            self.sensorHandler.send("Try/MQTT")
         except:
             logging.error("Error connection exception...")
         finally:
             #logging.info("sensorhandler finishes to run")
-            self.sensorHandler.close()
-            logging.info("{}, Close the connection".format(ID))
+            #self.sensorHandler.close()
+            #logging.info("{}, Close the connection".format(ID))
             lock.release()
             logging.info("{}, Release the lock".format(ID))
-            time.sleep(sleep)
+            #time.sleep(sleep)
