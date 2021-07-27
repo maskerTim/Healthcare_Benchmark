@@ -24,11 +24,8 @@ class Person:
 
     def wearSensors(self):
         """ attaches the sensors on person """
-        # old version multithreading
+        # ------ old version multithreading -----
         self.ID = threading.current_thread().ident
-        # new version multiprocessor
-        # ID as processor ID
-        #self.ID = os.getpid()
         # threadHR = threading.Thread(target=self.sensorHR.execute, args=(self.ID, 5, self.ip, self.port, self.lock))
         # threadBP = threading.Thread(target=self.sensorBP.execute, args=(self.ID, 3, self.ip, self.port, self.lock))
         # threadPO = threading.Thread(target=self.sensorPO.execute, args=(self.ID, 7, self.ip, self.port, self.lock))
@@ -37,11 +34,23 @@ class Person:
         # self.threadManager.append(threadBP)
         # self.threadManager.append(threadPO)
         # self.threadManager.append(threadFT)
-        threadHR = threading.Timer(5, self.sensorHR.execute, args=(self.ID, 5, self.ip, self.port, self.lock))
+        # ----- new version multithreading (add the Timer) -----
+        threadHR = threading.Timer(5, self.sensorHR.execute,
+                                   args=(self.ID, 5, self.ip, self.port, self.lock, self.sensorHR))
+        threadBP = threading.Timer(3, self.sensorBP.execute,
+                                   args=(self.ID, 3, self.ip, self.port, self.lock, self.sensorBP))
+        threadPO = threading.Timer(7, self.sensorPO.execute,
+                                   args=(self.ID, 7, self.ip, self.port, self.lock, self.sensorPO))
+        threadFT = threading.Timer(6, self.sensorFT.execute,
+                                   args=(self.ID, 3, self.ip, self.port, self.lock, self.sensorFT))
         self.threadManager.append(threadHR)
+        self.threadManager.append(threadBP)
+        self.threadManager.append(threadPO)
+        self.threadManager.append(threadFT)
 
-    def operate(self, period):
+    def operate(self):
         """ running the sensor instances """
+        # ------ old version multithreading -----
         # for i in range(period):
         #     self.wearSensors()
         #     for t in self.threadManager:
@@ -49,6 +58,7 @@ class Person:
         #     for t in self.threadManager:
         #         t.join()
         #     self.threadManager.clear()
+        # ------ new version multithreading -----
         self.wearSensors()
         for t in self.threadManager:
             t.start()

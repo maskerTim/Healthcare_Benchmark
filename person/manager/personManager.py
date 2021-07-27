@@ -21,7 +21,7 @@ class PersonManager(threading.Thread):
     def createPerson(self):
         """ multithreading version for creating the person instance"""
         for _ in range(self.number):
-            self.people.append(threading.Thread(target=Person(self.ip, self.port).operate, args=(4,)))
+            self.people.append(threading.Thread(target=Person(self.ip, self.port).operate))
 
     def getPeople(self):
         """ get the all person instances """
@@ -29,12 +29,11 @@ class PersonManager(threading.Thread):
 
     def run(self):
         """ running all person instances """
-        # multiprocessing version
+        # ----- multiprocessing version -----
         # [self.pool.apply_async(func=Person(self.ip, self.port).operate, args=(4,)) for _ in range(self.number)]
         # self.pool.close()
         # self.pool.join()
-        # -------------------
-        # multithreading version
+        # ----- multithreading version -----
         self.createPerson()
         if self.people:
             [p.start() for p in self.people]

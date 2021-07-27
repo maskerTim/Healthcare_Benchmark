@@ -1,5 +1,6 @@
 from ..sensorFactory import SensorFactory
 import logging
+import threading
 import time
 
 class SensorHandler:
@@ -9,7 +10,7 @@ class SensorHandler:
     def __init__(self, sensor="HR"):
         self.sensorHandler = SensorFactory(sensor)
 
-    def execute(self, ID, sleep, ip, port, lock, period=4, seed=0.7,  format='json'):
+    def execute(self, ID, sleep, ip, port, lock, sensor, period=4, seed=0.7,  format='json'):
         """ running the senser instances
         @synchronized
         @param {
@@ -18,6 +19,7 @@ class SensorHandler:
             ip: ip address
             port: port number
             lock: thread lock for synchronization
+            sensor: sensor instance itself for implementing the repeated execution
             @deprecated seed: the probability between normal and abnormal
                 @default 0.7
             period: how many round it executes
@@ -37,9 +39,9 @@ class SensorHandler:
         except:
             logging.error("Error connection exception...")
         finally:
-            #logging.info("sensorhandler finishes to run")
-            #self.sensorHandler.close()
-            #logging.info("{}, Close the connection".format(ID))
+            self.sensorHandler.close()
+            logging.info("{}, Close the connection".format(ID))
             lock.release()
             logging.info("{}, Release the lock".format(ID))
             #time.sleep(sleep)
+            threading.Timer(5, sensor.execute, args=(ID, 5, ip, port, lock, sensor)).start()

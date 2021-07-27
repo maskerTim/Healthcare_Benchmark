@@ -1,5 +1,6 @@
 import logging
-import networks.socket.client as socketClient
+from networks.networkSelector import NetworkSelector
+from multipledispatch import dispatch
 import cv2
 
 class Video:
@@ -10,6 +11,7 @@ class Video:
         self.port = 0
         self.cap = None
         self.socket = None
+        self.protocol = None
         self.frames = []
 
     def setID(self, ID):
@@ -49,14 +51,25 @@ class Video:
         @param {frame: the video frame}
         @desc send the frame to server/some machine
     """
-    def connect(self, ip, port):
+    def connect(self, ip, port, protocol):
         """ the network functionalities
         connect:
             @param {ip: ip address, port: port number}
             @desc connect to the server/some machine
         """
-        self.socket = socketClient.createSocket()
-        self.socket.connect((ip, port))
+        ns = NetworkSelector(protocol)
+        self.protocol = protocol
+        if "socket"==protocol:
+            self.socket = ns.createSocket()
+            self.socket.connect((ip, port))
+        elif "mqttSub"==protocol:
+            self.socket = ns.createSubscriber()
+            self.socket.connect(ip, port)
+            self.socket.on_connect = ns.on_connect
+            self.socket.on_message = ns.on_message
+        elif "mqttPub"==protocol:
+            self.socket = ns.createPublisher()
+            self.socket.connect(ip, port)
         logging.info("succeed to connect to {}:{}".format(ip, port))
 
     def close(self):
@@ -64,9 +77,13 @@ class Video:
         close:
             @desc close the connection
         """
-        self.socket.close()
+        if "socket"==self.protocol:
+            self.socket.close()
+        elif "mqttSub"==self.protocol or "mqttPub"==self.protocol:
+            self.socket.disconnect()
         logging.info("close the connection")
 
+    @dispatch(bytes)
     def sendall(self, frame):
         """ the network functionalities
         sendall:
@@ -74,3 +91,12 @@ class Video:
             @desc send the frame to server/some machine
         """
         self.socket.sendall(frame)
+
+    @dispatch(str, bytes)
+    def sendall(self, topic, frame):
+        """ the network functionalities for tcp socket
+        send:
+            @desc send the event to server/some machine
+            @param {topic: the topic of mqtt}
+        """
+        self.socket.publish(topic, frame)

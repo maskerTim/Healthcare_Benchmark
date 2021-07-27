@@ -58,7 +58,7 @@ class Sensor:
         """
         if "socket"==self.protocol:
             self.socket.close()
-        elif "mqttSub"==self.protocol:
+        elif "mqttSub"==self.protocol or "mqttPub"==self.protocol:
             self.socket.disconnect()
 
     @dispatch()
@@ -72,7 +72,7 @@ class Sensor:
 
     @dispatch(str)
     def send(self, topic):
-        """ the network functionalities for tcp socket
+        """ the network functionalities for mqtt
         send:
             @desc send the event to server/some machine
             @param {topic: the topic of mqtt}

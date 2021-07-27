@@ -12,10 +12,10 @@ def config(filename='log.txt'):
     ch.setLevel(logging.DEBUG)
     ch.setFormatter(formatter)
     log_filename = filename
-    # logging to file
-    fh = logging.FileHandler(log_filename, mode='w')
-    fh.setLevel(logging.DEBUG)
-    fh.setFormatter(formatter)
+    # ----- logging to file -----
+    # fh = logging.FileHandler(log_filename, mode='w')
+    # fh.setLevel(logging.DEBUG)
+    # fh.setFormatter(formatter)
     # add logging handler
     logger.addHandler(ch)
-    logger.addHandler(fh)
+    #logger.addHandler(fh)

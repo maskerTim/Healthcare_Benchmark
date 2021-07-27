@@ -8,6 +8,7 @@ import struct
 import datetime
 import cv2
 import logging
+from multipledispatch import dispatch
 from resources.resource import resources_configs
 
 class VideoHandler:
@@ -61,7 +62,7 @@ class VideoHandler:
             car_count+=1
         return car_count
 
-    def connectTo(self, ip, port):
+    def connectTo(self, ip, port, protocol="socket"):
         """ Network Functionalities
         connectTo:
             @param {ip: ip address, port: port number}
@@ -70,10 +71,11 @@ class VideoHandler:
         """
         try:
             self.videoHandler.setID(threading.get_ident())
-            self.videoHandler.connect(ip, port)
+            self.videoHandler.connect(ip, port, protocol)
         except Exception as e:
             logging.error("Error: {}".format(e))
 
+    @dispatch(bytes)
     def sendAll(self, frame):
         """ Network Functionalities
         sendAll:
@@ -81,6 +83,16 @@ class VideoHandler:
             @desc send the video frame
         """
         self.videoHandler.sendall(frame)
+
+    @dispatch(str, bytes)
+    def sendAll(self, topic, frame):
+        """ Network Functionalities
+        sendAll:
+            @param {frame: the video frame}
+            @desc send the video frame
+        """
+        self.videoHandler.sendall(topic, frame)
+        logging.info("publish")
 
     def close(self):
         """ Network Functionalities
