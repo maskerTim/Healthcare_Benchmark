@@ -10,6 +10,8 @@ class Sensor:
         self.event = None
         self.ip = ""
         self.port = 0
+        # switch between the normal and abnormal value
+        self.count = 0
         self.socket = None
         self.protocol = None
 

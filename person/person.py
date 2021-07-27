@@ -39,14 +39,14 @@ class Person:
                                    args=(self.ID, 5, self.ip, self.port, self.lock, self.sensorHR))
         threadBP = threading.Timer(3, self.sensorBP.execute,
                                    args=(self.ID, 3, self.ip, self.port, self.lock, self.sensorBP))
-        threadPO = threading.Timer(7, self.sensorPO.execute,
-                                   args=(self.ID, 7, self.ip, self.port, self.lock, self.sensorPO))
-        threadFT = threading.Timer(6, self.sensorFT.execute,
-                                   args=(self.ID, 3, self.ip, self.port, self.lock, self.sensorFT))
+        # threadPO = threading.Timer(7, self.sensorPO.execute,
+        #                            args=(self.ID, 7, self.ip, self.port, self.lock, self.sensorPO))
+        # threadFT = threading.Timer(6, self.sensorFT.execute,
+        #                            args=(self.ID, 3, self.ip, self.port, self.lock, self.sensorFT))
         self.threadManager.append(threadHR)
         self.threadManager.append(threadBP)
-        self.threadManager.append(threadPO)
-        self.threadManager.append(threadFT)
+        # self.threadManager.append(threadPO)
+        # self.threadManager.append(threadFT)
 
     def operate(self):
         """ running the sensor instances """

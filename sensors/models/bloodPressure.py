@@ -19,10 +19,18 @@ class BloodPressure(Sensor):
         # normal blood pressure
         #time.sleep(sleep)
         #logging.info("Blood Pressure read per {}...".format(sleep))
-        systolic = random.randint(90, 120)
-        diastolic = random.randint(60, 80)
+        if self.count < 5:
+            systolic = random.randint(90, 120)
+            diastolic = random.randint(60, 80)
+        elif self.count >= 5 and self.count <= 15:
+            systolic = random.randint(121, 130)
+            diastolic = random.randint(81, 90)
+        else:
+            systolic = random.randint(90, 120)
+            diastolic = random.randint(60, 80)
         self.ID = ID
         self.value = "{}/{}".format(systolic, diastolic)
+        self.count+=1
 
     def makeEvent(self, format):
         """ make the event to send out

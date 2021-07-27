@@ -20,7 +20,13 @@ class HeartRate(Sensor):
         #time.sleep(sleep)
         #logging.info("Heart Rate read per {}...".format(sleep))
         self.ID = ID
-        self.value = random.randint(60, 80)
+        if self.count < 5:
+            self.value = random.randint(60, 80)
+        elif self.count >= 5 and self.count < 15:
+            self.value = random.randint(81, 90)
+        else:
+            self.value = random.randint(60, 80)
+        self.count+=1
 
     def makeEvent(self, format):
         """ make the event to send out
