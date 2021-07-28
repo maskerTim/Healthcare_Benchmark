@@ -29,7 +29,8 @@ class BloodPressure(Sensor):
             systolic = random.randint(90, 120)
             diastolic = random.randint(60, 80)
         self.ID = ID
-        self.value = "{}/{}".format(systolic, diastolic)
+        #self.value = "{}/{}".format(systolic, diastolic)
+        self.value = systolic
         self.count+=1
 
     def makeEvent(self, format):
@@ -43,7 +44,7 @@ class BloodPressure(Sensor):
             "startTime": datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S.%f"),
             "endTime": None,
             "dataType": "Blood Pressure",
-            "valueType": "String",
+            "valueType": "Int",
             "unit": "mmHg",
             "value": self.value
         })
