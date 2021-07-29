@@ -7,6 +7,9 @@ from ..events.models.foreheadTemperatureEvent import ForeheadTemperatureEvent
 
 class ForeheadTemperature(Sensor):
     """ Operation of Blood Pressure """
+    def __init__(self):
+        super().__init__()
+        self.name = "ForeheadTemperature"
 
     def read(self, ID, sleep, seed):
         """ simulate to read the value

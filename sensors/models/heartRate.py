@@ -7,6 +7,9 @@ import logging
 
 class HeartRate(Sensor):
     """ Operation of Heart Rate """
+    def __init__(self):
+        super().__init__()
+        self.name = "HeartRate"
 
     def read(self, ID, sleep, seed):
         """ simulate to read the value

@@ -35,7 +35,7 @@ class SensorHandler:
             self.sensorHandler.connect(ip, port, "mqttPub")
             self.sensorHandler.read(ID, sleep, seed)
             self.sensorHandler.makeEvent(format)
-            self.sensorHandler.send("Try/MQTT")
+            self.sensorHandler.send("Try/{}".format(self.sensorHandler.name))
         except:
             logging.error("Error connection exception...")
         finally:

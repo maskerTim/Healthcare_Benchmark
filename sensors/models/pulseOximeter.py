@@ -7,6 +7,9 @@ import logging
 
 class PulseOximeter(Sensor):
     """ Operation of Pulse Oximeter """
+    def __init__(self):
+        super().__init__()
+        self.name = "PulseOximeter"
 
     def read(self, ID, sleep, seed):
         """ simulate to read the value

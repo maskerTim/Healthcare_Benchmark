@@ -8,6 +8,10 @@ from ..events.models.bloodPressureEvent import BloodPressureEvent
 class BloodPressure(Sensor):
     """ Operation of Blood Pressure """
 
+    def __init__(self):
+        super().__init__()
+        self.name = "BloodPressure"
+
     def read(self, ID, sleep, seed):
         """ simulate to read the value
         @param {
