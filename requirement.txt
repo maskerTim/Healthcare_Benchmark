@@ -2,12 +2,17 @@ APScheduler==3.7.0
 argcomplete==1.12.3
 certifi==2021.5.30
 click==8.0.1
+importlib-metadata==4.6.1
 multipledispatch==0.6.0
+numpy==1.21.1
+opencv-python==4.5.3.56
 packaging==21.0
 paho-mqtt==1.5.1
 pipx==0.16.3
 pyparsing==2.4.7
 pytz==2021.1
 six==1.16.0
+typing-extensions==3.10.0.0
 tzlocal==2.1
 userpath==1.6.0
+zipp==3.5.0

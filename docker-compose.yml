@@ -5,81 +5,89 @@ services:
     container_name: peopleGroup11
     stdin_open: true
     tty: true
-    command: /bin/bash
+    command: python main.py
     networks:
       - network-1
-    deploy:
-      resources:
-        limits:
-          cpus: '0.15'
-          memory: 80M
-        reservations:
-          cpus: '0.05'
-          memory: 50M
   g21:
     image: "${IMAGE_NAME}:${IMAGE_TAG}"
     container_name: peopleGroup21
     stdin_open: true
     tty: true
-    command: /bin/bash
+    command: python main.py
     networks:
       - network-1
-    deploy:
-      resources:
-        limits:
-          cpus: '0.15'
-          memory: 80M
-        reservations:
-          cpus: '0.05'
-          memory: 50M
-  v11:
+  g31:
     image: "${IMAGE_NAME}:${IMAGE_TAG}"
-    container_name: video11
+    container_name: peopleGroup31
     stdin_open: true
     tty: true
-    command: /bin/bash
+    command: python main.py
     networks:
       - network-1
-    deploy:
-      resources:
-        limits:
-          cpus: '0.33'
-          memory: 100M
-        reservations:
-          cpus: '0.2'
-          memory: 80M
-  g12:
+  g41:
     image: "${IMAGE_NAME}:${IMAGE_TAG}"
-    container_name: peopleGroup12
+    container_name: peopleGroup41
     stdin_open: true
     tty: true
-    command: /bin/bash
+    command: python main.py
     networks:
-      - network-2
-    deploy:
-      resources:
-        limits:
-          cpus: '0.15'
-          memory: 80M
-        reservations:
-          cpus: '0.05'
-          memory: 50M
-  v12:
+      - network-1
+  g51:
     image: "${IMAGE_NAME}:${IMAGE_TAG}"
-    container_name: video12
+    container_name: peopleGroup51
     stdin_open: true
     tty: true
-    command: /bin/bash
+    command: python main.py
     networks:
-      - network-2
-    deploy:
-      resources:
-        limits:
-          cpus: '0.33'
-          memory: 100M
-        reservations:
-          cpus: '0.2'
-          memory: 80M
+      - network-1
+#  v11:
+#    image: "${IMAGE_NAME}:${IMAGE_TAG}"
+#    container_name: video11
+#    stdin_open: true
+#    tty: true
+#    command: /bin/bash
+#    networks:
+#      - network-1
+#    deploy:
+#      resources:
+#        limits:
+#          cpus: '0.33'
+#          memory: 100M
+#        reservations:
+#          cpus: '0.2'
+#          memory: 80M
+#  g12:
+#    image: "${IMAGE_NAME}:${IMAGE_TAG}"
+#    container_name: peopleGroup12
+#    stdin_open: true
+#    tty: true
+#    command: /bin/bash
+#    networks:
+#      - network-2
+#    deploy:
+#      resources:
+#        limits:
+#          cpus: '0.15'
+#          memory: 80M
+#        reservations:
+#          cpus: '0.05'
+#          memory: 50M
+#  v12:
+#    image: "${IMAGE_NAME}:${IMAGE_TAG}"
+#    container_name: video12
+#    stdin_open: true
+#    tty: true
+#    command: /bin/bash
+#    networks:
+#      - network-2
+#    deploy:
+#      resources:
+#        limits:
+#          cpus: '0.33'
+#          memory: 100M
+#        reservations:
+#          cpus: '0.2'
+#          memory: 80M
 networks:
   network-1:
     external:

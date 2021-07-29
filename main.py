@@ -14,7 +14,7 @@ if __name__ == '__main__':
     #VM1 = VideoManager(1, "192.168.0.99", 1883, "HD720")
     #VM1.start()
     PM1 = PersonManager(2, "192.168.100.75", 1882)
-    #PM2 = PersonManager(30, "192.168.0.99", 1882)
+    #PM2 = PersonManager(2, "192.168.0.99", 1882)
     PM1.start()
     #PM2.start()
     #PM3 = PersonManager(1, "192.168.0.99", 9999)
