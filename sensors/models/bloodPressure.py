@@ -29,9 +29,11 @@ class BloodPressure(Sensor):
             systolic = random.randint(90, 120)
             diastolic = random.randint(60, 80)
         self.ID = ID
-        #self.value = "{}/{}".format(systolic, diastolic)
+        # self.value = "{}/{}".format(systolic, diastolic)
         self.value = systolic
         self.count+=1
+        if self.count > 25:
+            self.count = 0
 
     def makeEvent(self, format):
         """ make the event to send out

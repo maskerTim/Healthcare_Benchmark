@@ -20,7 +20,15 @@ class PulseOximeter(Sensor):
         #time.sleep(sleep)
         #logging.info("Pulse Oximeter read per {}...".format(sleep))
         self.ID = ID
-        self.value = random.randint(95, 100)
+        if self.count < 5:
+            self.value = random.randint(95, 100)
+        elif self.count >= 5 and self.count < 15:
+            self.value = random.randint(80, 94)
+        else:
+            self.value = random.randint(95, 100)
+        self.count+=1
+        if self.count > 25:
+            self.count = 0
 
     def makeEvent(self, format):
         """ make the event to send out

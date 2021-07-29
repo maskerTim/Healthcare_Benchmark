@@ -27,6 +27,8 @@ class HeartRate(Sensor):
         else:
             self.value = random.randint(60, 80)
         self.count+=1
+        if self.count > 25:
+            self.count = 0
 
     def makeEvent(self, format):
         """ make the event to send out
