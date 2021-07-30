@@ -44,4 +44,4 @@ class SensorHandler:
             lock.release()
             logging.info("{}, Release the lock".format(ID))
             #time.sleep(sleep)
-            threading.Timer(5, sensor.execute, args=(ID, 5, ip, port, lock, sensor)).start()
+            threading.Timer(sleep, sensor.execute, args=(ID, sleep, ip, port, lock, sensor)).start()
