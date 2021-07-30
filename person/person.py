@@ -40,7 +40,7 @@ class Person:
         threadBP = threading.Timer(3, self.sensorBP.execute,
                                    args=(self.ID, 3, self.ip, self.port, self.lock, self.sensorBP))
         threadPO = threading.Timer(7, self.sensorPO.execute,
-                                   args=(self.ID, 7, self.ip, self.port, self.lock, self.sensorPO))
+                                   args=(self.ID, 2, self.ip, self.port, self.lock, self.sensorPO))
         # threadFT = threading.Timer(6, self.sensorFT.execute,
         #                            args=(self.ID, 3, self.ip, self.port, self.lock, self.sensorFT))
         self.threadManager.append(threadHR)
