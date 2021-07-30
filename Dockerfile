@@ -11,10 +11,11 @@ RUN apt update && \
 WORKDIR /project
 
 # Copy healthcare directory into container's project directory
-COPY . .
+# COPY . .
+COPY ./requirement.txt .
 
 RUN pip install -r requirement.txt
 
 VOLUME ["/project"]
 
-CMD ["bash"]
+# CMD ["bash"]
