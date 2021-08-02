@@ -3,7 +3,7 @@ from networks.networkSelector import NetworkSelector
 from multipledispatch import dispatch
 
 class Sensor:
-    """ Interface of sensor"""
+    """ Abstract class of sensor"""
     def __init__(self):
         self.ID = None
         self.value = 0

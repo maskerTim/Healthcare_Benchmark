@@ -10,10 +10,10 @@ class Subscribe:
         self.subscriber = mqtt.Client()
         return self.subscriber
 
-    def on_connect(self):
+    def on_connect(self, client, userdata, flags, rc):
         """ when succeed to connect then execute """
         pass
 
-    def on_message(self):
+    def on_message(self, client, userdata, msg):
         """ when succeed to receive from broker then execute """
         pass
