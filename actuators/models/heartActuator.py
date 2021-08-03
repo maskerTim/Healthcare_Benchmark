@@ -5,7 +5,7 @@ class HeartActuator(Actuator):
     """ Actuator for heart rate"""
     def __init__(self):
         super().__init__()
-        self.name = "Heart Actuator"
+        self.name = "HeartActuator"
 
     @classmethod
     def do(cls):

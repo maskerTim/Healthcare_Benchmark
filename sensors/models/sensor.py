@@ -45,11 +45,6 @@ class Sensor:
         if "socket"==protocol:
             self.socket = ns.createSocket()
             self.socket.connect((ip, port))
-        elif "mqttSub"==protocol:
-            self.socket = ns.createSubscriber()
-            self.socket.connect(ip, port)
-            self.socket.on_connect = ns.on_connect
-            self.socket.on_message = ns.on_message
         elif "mqttPub"==protocol:
             self.socket = ns.createPublisher()
             self.socket.connect(ip, port)

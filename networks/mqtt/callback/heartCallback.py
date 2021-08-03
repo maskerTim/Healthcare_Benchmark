@@ -7,7 +7,7 @@ class HeartCallback(Subscribe):
     @classmethod
     def on_connect(cls, client, userdata, flags, rc):
         print("Connected with result code " + str(rc))
-        client.subscribe("Try/HeartRate")
+        client.subscribe("Try/HeartActuator")
 
     @classmethod
     def on_message(cls, client, userdata, msg):

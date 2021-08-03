@@ -44,7 +44,8 @@ class Actuator:
             self.socket.on_connect = self.on_connect
             self.socket.on_message = self.on_message
             self.socket.connect(ip, port)
-            self.socket.loop_start()
+            #self.socket.loop_start()
+            self.socket.loop_forever()
 
     def close(self):
         """ the network functionalities

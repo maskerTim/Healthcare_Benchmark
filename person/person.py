@@ -55,6 +55,7 @@ class Person:
         # self.threadManager.append(threadFT)
 
     def wearActuators(self):
+        """ attaches the actuators on person """
         self.actuatorHA.setOnConnect(HeartCallback.on_connect)
         self.actuatorHA.setOnMessage(HeartCallback.on_message)
         self.actuatorHA.connect(self.ip, 1881, "mqttSub")
