@@ -54,4 +54,5 @@ class Actuator:
         if "socket" == self.protocol:
             self.socket.close()
         elif "mqttSub" == self.protocol:
+            self.socket.loop_stop()
             self.socket.disconnect()

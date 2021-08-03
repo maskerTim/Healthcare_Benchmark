@@ -6,6 +6,7 @@ class HeartActuator(Actuator):
     def __init__(self):
         super().__init__()
         self.name = "Heart Actuator"
+
     @classmethod
-    def do(self):
+    def do(cls):
         logging.info("The Heart Actuator is executing...")

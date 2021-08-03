@@ -6,6 +6,7 @@ from sensors.handler.sensorHandler import SensorHandler
 import threading
 from actuators.actuatorFactory import ActuatorFactory
 from networks.mqtt.callback.heartCallback import HeartCallback
+import os
 import logging
 from apscheduler.schedulers.background import BlockingScheduler
 
@@ -54,7 +55,6 @@ class Person:
         # self.threadManager.append(threadFT)
 
     def wearActuators(self):
-        #self.actuatorHA.prepare(self.threadManager)
         self.actuatorHA.setOnConnect(HeartCallback.on_connect)
         self.actuatorHA.setOnMessage(HeartCallback.on_message)
         self.actuatorHA.connect(self.ip, 1881, "mqttSub")
@@ -72,6 +72,6 @@ class Person:
         #     self.threadManager.clear()
         # ------ new version multithreading -----
         self.wearSensors()
-        self.wearActuators()
+        #self.wearActuators()
         for t in self.threadManager:
             t.start()
