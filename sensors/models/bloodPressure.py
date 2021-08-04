@@ -5,6 +5,7 @@ from .sensor import Sensor
 import datetime
 from ..events.models.bloodPressureEvent import BloodPressureEvent
 
+
 class BloodPressure(Sensor):
     """ Operation of Blood Pressure """
 
@@ -12,7 +13,7 @@ class BloodPressure(Sensor):
         super().__init__()
         self.name = "BloodPressure"
 
-    def read(self, ID, sleep, seed):
+    def read(self, ID):
         """ simulate to read the value
         @param {
             ID: identification of which person wears
@@ -21,12 +22,10 @@ class BloodPressure(Sensor):
         }
         """
         # normal blood pressure
-        #time.sleep(sleep)
-        #logging.info("Blood Pressure read per {}...".format(sleep))
         if self.count < 5:
             systolic = random.randint(90, 120)
             diastolic = random.randint(60, 80)
-        elif self.count >= 5 and self.count <= 15:
+        elif 5 <= self.count <= 15:
             systolic = random.randint(121, 130)
             diastolic = random.randint(81, 90)
         else:
@@ -35,7 +34,7 @@ class BloodPressure(Sensor):
         self.ID = ID
         # self.value = "{}/{}".format(systolic, diastolic)
         self.value = systolic
-        self.count+=1
+        self.count += 1
         if self.count > 25:
             self.count = 0
 

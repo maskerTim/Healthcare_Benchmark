@@ -3,6 +3,7 @@ from networks.networkSelector import NetworkSelector
 from multipledispatch import dispatch
 import cv2
 
+
 class Video:
     """ Interface of video"""
     def __init__(self):
@@ -19,27 +20,6 @@ class Video:
         @param {ID: the identification of video instance}
         """
         self.ID = ID
-
-
-    """ @Deprecated Code, later will clean it """
-    # """ open the video streaming"""
-    # def open(self, filepath, type):
-    #     self.openVideoFile(filepath)
-    #     return self.cap
-
-    def openVideoFile(self, filepath):
-        """ open the video file
-        @param {filepath: the path of video file}
-        """
-        # open the video file
-        cap = cv2.VideoCapture(filepath)
-        # get the position/index of frame in this video
-        pos_frame = cap.get(cv2.CAP_PROP_POS_FRAMES)
-        self.cap = cap
-
-    """ @Deprecated Code, later will clean it """
-    # def recordVideo(self, frame):
-    #     self.frames.append(frame)
 
     """ the network functionalities
     1. connect:
@@ -59,15 +39,10 @@ class Video:
         """
         ns = NetworkSelector(protocol)
         self.protocol = protocol
-        if "socket"==protocol:
+        if "socket" == protocol:
             self.socket = ns.createSocket()
             self.socket.connect((ip, port))
-        elif "mqttSub"==protocol:
-            self.socket = ns.createSubscriber()
-            self.socket.connect(ip, port)
-            self.socket.on_connect = ns.on_connect
-            self.socket.on_message = ns.on_message
-        elif "mqttPub"==protocol:
+        elif "mqttPub" == protocol:
             self.socket = ns.createPublisher()
             self.socket.connect(ip, port)
         logging.info("succeed to connect to {}:{}".format(ip, port))
@@ -77,9 +52,9 @@ class Video:
         close:
             @desc close the connection
         """
-        if "socket"==self.protocol:
+        if "socket" == self.protocol:
             self.socket.close()
-        elif "mqttSub"==self.protocol or "mqttPub"==self.protocol:
+        elif "mqttPub" == self.protocol:
             self.socket.disconnect()
         logging.info("close the connection")
 

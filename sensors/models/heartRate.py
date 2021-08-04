@@ -1,12 +1,12 @@
 from .sensor import Sensor
 from ..events.models.heartRateEvent import HeartRateEvent
 import datetime
-import time
 import random
-import logging
+
 
 class HeartRate(Sensor):
     """ Operation of Heart Rate """
+
     def __init__(self):
         super().__init__()
         self.name = "HeartRate"
@@ -20,16 +20,14 @@ class HeartRate(Sensor):
         }
         """
         # normal range of heartbeat
-        #time.sleep(sleep)
-        #logging.info("Heart Rate read per {}...".format(sleep))
         self.ID = ID
         if self.count < 5:
             self.value = random.randint(60, 80)
-        elif self.count >= 5 and self.count < 15:
+        elif 5 <= self.count < 15:
             self.value = random.randint(81, 90)
         else:
             self.value = random.randint(60, 80)
-        self.count+=1
+        self.count += 1
         if self.count > 25:
             self.count = 0
 

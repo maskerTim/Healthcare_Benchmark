@@ -5,13 +5,15 @@ import time
 import random
 import logging
 
+
 class PulseOximeter(Sensor):
     """ Operation of Pulse Oximeter """
+
     def __init__(self):
         super().__init__()
         self.name = "PulseOximeter"
 
-    def read(self, ID, sleep, seed):
+    def read(self, ID):
         """ simulate to read the value
         @param {
             ID: identification of which person wears
@@ -20,16 +22,14 @@ class PulseOximeter(Sensor):
         }
         """
         # normal range of heartbeat
-        #time.sleep(sleep)
-        #logging.info("Pulse Oximeter read per {}...".format(sleep))
         self.ID = ID
         if self.count < 5:
             self.value = random.randint(95, 100)
-        elif self.count >= 5 and self.count < 15:
+        elif 5 <= self.count < 15:
             self.value = random.randint(80, 94)
         else:
             self.value = random.randint(95, 100)
-        self.count+=1
+        self.count += 1
         if self.count > 25:
             self.count = 0
 

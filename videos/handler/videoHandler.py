@@ -1,46 +1,19 @@
 import threading
 
 from ..videoFactory import VideoFactory
-import logging
-import time
-import pickle
-import struct
-import datetime
 import cv2
 import logging
 from multipledispatch import dispatch
 from resources.resource import resources_configs
 
+
 class VideoHandler:
     # config the classifier model for detecting car
     cars_cascade = cv2.CascadeClassifier(resources_configs["models"]()[0])
 
-    def __init__(self, video="CAM"):
+    def __init__(self, video):
         """ Create some video for healthcare by factory and Operate it """
-        self.videoHandler = VideoFactory(video)
-
-    """ @Deprecated Code, later will clean it"""
-    # """ Open the video and Record it"""
-    # def openAndRecordVideo(self, file, type="file"):
-    #     start = datetime.datetime.now()
-    #     logging.info("open the video...")
-    #     cap = self.videoHandler.open(file, type)
-    #     logging.info("record the video...")
-    #     try:
-    #         while True:
-    #             flag, frame = cap.read()
-    #             if flag:
-    #                 frame = pickle.dumps(frame)
-    #                 p = struct.pack('I', len(frame))
-    #                 frame = p + frame
-    #                 #self.videoHandler.recordVideo(frame)
-    #             # break down the recording video
-    #             end = datetime.datetime.now()
-    #             if (end-start).seconds > 30:
-    #                 break
-    #     except Exception as e:
-    #         logging.error(e)
-    #     logging.info("finish to record")
+        self.videoHandler = video
 
     @classmethod
     def open(cls, filepath):
@@ -59,7 +32,7 @@ class VideoHandler:
         car_count = 0
         cars = cls.cars_cascade.detectMultiScale(frame, 1.15, 4)
         for _ in cars:
-            car_count+=1
+            car_count += 1
         return car_count
 
     def connectTo(self, ip, port, protocol="socket"):

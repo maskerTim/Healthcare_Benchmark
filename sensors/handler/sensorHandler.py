@@ -1,8 +1,6 @@
-from ..sensorFactory import SensorFactory
 import logging
 import threading
 import os
-import time
 
 
 class SensorHandler:
@@ -17,7 +15,7 @@ class SensorHandler:
         self.sensorHandler = sensor
 
     def getInterval(self):
-        self.sensorHandler.getInterval()
+        return self.sensorHandler.getInterval()
 
     def execute(self, ID, interval, ip, port, lock, sensor, format='json'):
         """ running the senser instances
@@ -45,8 +43,8 @@ class SensorHandler:
             self.sensorHandler.read(ID)
             self.sensorHandler.makeEvent(format)
             self.sensorHandler.send("{}/{}".format(os.getenv("MQTT_TOPIC_SENSOR_PREFIX"), self.sensorHandler.name))
-        except:
-            logging.error("Error connection exception...")
+        except Exception as e:
+            logging.error("Error: {}".format(e))
         finally:
             self.sensorHandler.close()
             logging.info("{}, Close the connection".format(ID))

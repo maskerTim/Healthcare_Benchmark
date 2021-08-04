@@ -65,7 +65,7 @@ class Sensor:
         """
         if "socket"==self.protocol:
             self.socket.close()
-        elif "mqttSub"==self.protocol or "mqttPub"==self.protocol:
+        elif "mqttPub"==self.protocol:
             self.socket.disconnect()
 
     @dispatch()

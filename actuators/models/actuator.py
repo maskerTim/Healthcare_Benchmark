@@ -2,15 +2,14 @@ import logging
 import threading
 from networks.networkSelector import NetworkSelector
 
+
 class Actuator:
     """ Abstract class of actuator """
+
     def __init__(self):
         self.ip = ""
-        self.name = ""
         self.port = 0
         self.socket = None
-        self.on_connect = None
-        self.on_message = None
         self.protocol = None
 
     def prepare(self, threadManager):
@@ -22,11 +21,11 @@ class Actuator:
         """take the action"""
         pass
 
-    def setOnConnect(self, connectfunc):
-        self.on_connect = connectfunc
+    def on_connect(self, client, userdata, flags, rc):
+        pass
 
-    def setOnMessage(self, messagefunc):
-        self.on_message = messagefunc
+    def on_message(self, client, userdata, msg):
+        pass
 
     def connect(self, ip, port, protocol="socket"):
         """ the network functionalities
@@ -44,7 +43,8 @@ class Actuator:
             self.socket.on_connect = self.on_connect
             self.socket.on_message = self.on_message
             self.socket.connect(ip, port)
-            #self.socket.loop_start()
+            # self.socket.loop_start()
+            # blocking to prevent from termination
             self.socket.loop_forever()
 
     def close(self):

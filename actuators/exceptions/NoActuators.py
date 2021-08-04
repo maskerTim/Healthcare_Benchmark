@@ -1,0 +1,2 @@
+class NoActuatorsError(BaseException):
+    pass

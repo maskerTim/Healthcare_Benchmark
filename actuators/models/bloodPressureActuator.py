@@ -2,12 +2,12 @@ import logging
 from .actuator import Actuator
 import os
 
-class HeartActuator(Actuator):
+class BloodPressureActuator(Actuator):
     """ Actuator for heart rate"""
 
     def __init__(self):
         super().__init__()
-        self.name = "HeartActuator"
+        self.name = "BloodPressureActuator"
 
     def on_connect(self, client, userdata, flags, rc):
         print("Connected with result code " + str(rc))
@@ -15,8 +15,8 @@ class HeartActuator(Actuator):
 
     def on_message(self, client, userdata, msg):
         print(msg.topic + " " + msg.payload.decode('utf-8'))
-        HeartActuator.do()
+        BloodPressureActuator.do()
 
     @classmethod
     def do(cls):
-        logging.info("The Heart Actuator is executing...")
+        logging.info("The Blood Pressure Actuator is executing...")

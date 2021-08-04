@@ -5,13 +5,15 @@ from .sensor import Sensor
 import datetime
 from ..events.models.foreheadTemperatureEvent import ForeheadTemperatureEvent
 
+
 class ForeheadTemperature(Sensor):
     """ Operation of Blood Pressure """
+
     def __init__(self):
         super().__init__()
         self.name = "ForeheadTemperature"
 
-    def read(self, ID, sleep, seed):
+    def read(self, ID):
         """ simulate to read the value
         @param {
             ID: identification of which person wears
@@ -20,8 +22,8 @@ class ForeheadTemperature(Sensor):
         }
         """
         # normal blood pressure
-        #time.sleep(sleep)
-        #logging.info("Temperature read per {}...".format(sleep))
+        # time.sleep(sleep)
+        # logging.info("Temperature read per {}...".format(sleep))
         temperature = random.uniform(35.4, 37.4)
         self.ID = ID
         self.value = temperature
