@@ -2,11 +2,11 @@
 print(__name__)
 """
 
-from ..person import Person
+from sensors.group.sensorGroup import Person
 from multiprocessing import Pool
 import os
 import threading
-import time
+
 
 class PersonManager(threading.Thread):
     """ Manage the person instance """

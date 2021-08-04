@@ -11,7 +11,7 @@ class HeartRate(Sensor):
         super().__init__()
         self.name = "HeartRate"
 
-    def read(self, ID, sleep, seed):
+    def read(self, ID):
         """ simulate to read the value
         @param {
             ID: identification of which person wears

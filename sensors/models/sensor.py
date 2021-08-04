@@ -5,18 +5,27 @@ from multipledispatch import dispatch
 class Sensor:
     """ Abstract class of sensor"""
     def __init__(self):
+        # ID and value is set by read function
         self.ID = None
         self.value = 0
+        # event is set by makeEvent function
         self.event = None
         self.ip = ""
-        self.name = ""
         self.port = 0
+        # the interval of execution per time
+        self.interval = None
         # switch between the normal and abnormal value
         self.count = 0
         self.socket = None
         self.protocol = None
 
-    def read(self, ID, sleep, seed):
+    def setInterval(self, interval):
+        self.interval = interval
+
+    def getInterval(self):
+        return self.interval
+
+    def read(self, ID):
         """ simulate to read the value
         @param {
             ID: identification of which person wears

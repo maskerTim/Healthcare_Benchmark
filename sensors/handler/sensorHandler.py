@@ -10,10 +10,16 @@ class SensorHandler:
     Create some sensor by factory and Operate it
     """
 
-    def __init__(self, sensor="HR"):
-        self.sensorHandler = SensorFactory(sensor)
+    def __init__(self, sensor):
+        self.sensorHandler = sensor
 
-    def execute(self, ID, sleep, ip, port, lock, sensor, period=4, seed=0.7, format='json'):
+    def register(self, sensor):
+        self.sensorHandler = sensor
+
+    def getInterval(self):
+        self.sensorHandler.getInterval()
+
+    def execute(self, ID, interval, ip, port, lock, sensor, format='json'):
         """ running the senser instances
         @synchronized
         @param {
@@ -36,7 +42,7 @@ class SensorHandler:
             lock.acquire()
             logging.info("{}, Take the lock".format(ID))
             self.sensorHandler.connect(ip, port, "mqttPub")
-            self.sensorHandler.read(ID, sleep, seed)
+            self.sensorHandler.read(ID)
             self.sensorHandler.makeEvent(format)
             self.sensorHandler.send("{}/{}".format(os.getenv("MQTT_TOPIC_SENSOR_PREFIX"), self.sensorHandler.name))
         except:
@@ -47,4 +53,4 @@ class SensorHandler:
             lock.release()
             logging.info("{}, Release the lock".format(ID))
             # time.sleep(sleep)
-            threading.Timer(sleep, sensor.execute, args=(ID, sleep, ip, port, lock, sensor)).start()
+            threading.Timer(interval, sensor.execute, args=(ID, interval, ip, port, lock, sensor)).start()
