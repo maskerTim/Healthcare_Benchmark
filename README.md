@@ -1,6 +1,7 @@
 # Healthcare_Benchmark
 ###### tags: `github` `benchmark` `healthcare`
-This is a project for simulating the benchmark of healthcare
+## Introduction
+This is a project for the benchmark of healthcare simulation.
 ## Prerequisites
 ### Development Tools
 * Python 3.5+
