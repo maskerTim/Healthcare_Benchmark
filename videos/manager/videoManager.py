@@ -48,6 +48,8 @@ class VideoManager(threading.Thread):
                     jpg_as_text = base64.b64encode(buffer)
                     for v in self.videos:
                         v.sendAll("{}/{}".format(os.getenv("MQTT_TOPIC_VIDEO_PREFIX"), self.name), jpg_as_text)
+                else:
+                    break
             # logging.info("Finish to send the video")
         except Exception as e:
             logging.error("send error...maybe connection is broken or other fault occurs")
