@@ -35,26 +35,27 @@ class VideoManager(threading.Thread):
 
     def run(self):
         """ playing the video and send to remote server/host """
-        cap = VideoHandler.open(resources_configs["files"](self.resolution)[0])
-        logging.info("open the video...")
         self.connect()
         logging.info("connect the server/host")
-        try:
-            while True:
-                flag, frame = cap.read()
-                if flag:
-                    _, buffer = cv2.imencode('.jpg', frame)
-                    # Converting into encoded bytes
-                    jpg_as_text = base64.b64encode(buffer)
-                    for v in self.videos:
-                        v.sendAll("{}/{}".format(os.getenv("MQTT_TOPIC_VIDEO_PREFIX"), self.name), jpg_as_text)
-                else:
-                    break
-            # logging.info("Finish to send the video")
-        except Exception as e:
-            logging.error("send error...maybe connection is broken or other fault occurs")
-            logging.error(e)
-        finally:
-            cap.release()
-            for v in self.videos:
-                v.close()
+        while True:
+            cap = VideoHandler.open(resources_configs["files"](self.resolution)[0])
+            logging.info("open the video...")
+            try:
+                while True:
+                    flag, frame = cap.read()
+                    if flag:
+                        _, buffer = cv2.imencode('.jpg', frame)
+                        # Converting into encoded bytes
+                        jpg_as_text = base64.b64encode(buffer)
+                        for v in self.videos:
+                            v.sendAll("{}/{}".format(os.getenv("MQTT_TOPIC_VIDEO_PREFIX"), self.name), jpg_as_text)
+                    else:
+                        break
+                # logging.info("Finish to send the video")
+            except Exception as e:
+                logging.error("send error...maybe connection is broken or other fault occurs")
+                logging.error(e)
+            finally:
+                cap.release()
+                for v in self.videos:
+                    v.close()
