@@ -7,6 +7,7 @@ from resources.resource import resources_configs
 import logging
 import base64
 import os
+import time
 
 
 class VideoManager(threading.Thread):
@@ -59,3 +60,4 @@ class VideoManager(threading.Thread):
                 cap.release()
                 for v in self.videos:
                     v.close()
+            time.sleep(7)

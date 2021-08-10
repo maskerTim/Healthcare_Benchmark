@@ -65,6 +65,8 @@ services:
     container_name: peopleGroup71
     stdin_open: true
     tty: true
+    volumes:
+      - "${HOST_VOLUME}:${CONTAINER_VOLUME}"
     command: python main.py
     networks:
       - network-1
