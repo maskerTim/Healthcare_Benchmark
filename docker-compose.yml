@@ -1,103 +1,108 @@
 version: "3.9"
 services:
   g11:
-    image: "${IMAGE_NAME}:${IMAGE_TAG}"
+    build: "./"
+    image: "${IMAGE_NAME}:latest"
     container_name: peopleGroup11
     stdin_open: true
     tty: true
     volumes:
-      - "${HOST_VOLUME}:${CONTAINER_VOLUME}"
+      - "./:${CONTAINER_VOLUME}"
     command: python main.py
     networks:
       - network-1
   g21:
-    image: "${IMAGE_NAME}:${IMAGE_TAG}"
+    build: "./"
+    image: "${IMAGE_NAME}:latest"
     container_name: peopleGroup21
     stdin_open: true
     tty: true
     volumes:
-      - "${HOST_VOLUME}:${CONTAINER_VOLUME}"
+      - "./:${CONTAINER_VOLUME}"
     command: python main.py
     networks:
       - network-1
   g31:
-    image: "${IMAGE_NAME}:${IMAGE_TAG}"
+    build: "./"
+    image: "${IMAGE_NAME}:latest"
     container_name: peopleGroup31
     stdin_open: true
     tty: true
     volumes:
-      - "${HOST_VOLUME}:${CONTAINER_VOLUME}"
+      - "./:${CONTAINER_VOLUME}"
     command: python main.py
     networks:
       - network-1
-  g41:
-    image: "${IMAGE_NAME}:${IMAGE_TAG}"
-    container_name: peopleGroup41
-    stdin_open: true
-    tty: true
-    volumes:
-      - "${HOST_VOLUME}:${CONTAINER_VOLUME}"
-    command: python main.py
-    networks:
-      - network-1
-  g51:
-    image: "${IMAGE_NAME}:${IMAGE_TAG}"
-    container_name: peopleGroup51
-    stdin_open: true
-    tty: true
-    volumes:
-      - "${HOST_VOLUME}:${CONTAINER_VOLUME}"
-    command: python main.py
-    networks:
-      - network-1
-  g61:
-    image: "${IMAGE_NAME}:${IMAGE_TAG}"
-    container_name: peopleGroup61
-    stdin_open: true
-    tty: true
-    volumes:
-      - "${HOST_VOLUME}:${CONTAINER_VOLUME}"
-    command: python main.py
-    networks:
-      - network-1
-  g71:
-    image: "${IMAGE_NAME}:${IMAGE_TAG}"
-    container_name: peopleGroup71
-    stdin_open: true
-    tty: true
-    command: python main.py
-    networks:
-      - network-1
-  g81:
-    image: "${IMAGE_NAME}:${IMAGE_TAG}"
-    container_name: peopleGroup81
-    stdin_open: true
-    tty: true
-    volumes:
-      - "${HOST_VOLUME}:${CONTAINER_VOLUME}"
-    command: python main.py
-    networks:
-      - network-1
-  g91:
-    image: "${IMAGE_NAME}:${IMAGE_TAG}"
-    container_name: peopleGroup91
-    stdin_open: true
-    tty: true
-    volumes:
-      - "${HOST_VOLUME}:${CONTAINER_VOLUME}"
-    command: python main.py
-    networks:
-      - network-1
-  g101:
-    image: "${IMAGE_NAME}:${IMAGE_TAG}"
-    container_name: peopleGroup101
-    stdin_open: true
-    tty: true
-    volumes:
-      - "${HOST_VOLUME}:${CONTAINER_VOLUME}"
-    command: python main.py
-    networks:
-      - network-1
+#  g41:
+#    image: "${IMAGE_NAME}:${IMAGE_TAG}"
+#    container_name: peopleGroup41
+#    stdin_open: true
+#    tty: true
+#    volumes:
+#      - "./:${CONTAINER_VOLUME}"
+#    command: python main.py
+#    networks:
+#      - network-1
+#  g51:
+#    image: "${IMAGE_NAME}:${IMAGE_TAG}"
+#    container_name: peopleGroup51
+#    stdin_open: true
+#    tty: true
+#    volumes:
+#      - "./:${CONTAINER_VOLUME}"
+#    command: python main.py
+#    networks:
+#      - network-1
+#  g61:
+#    image: "${IMAGE_NAME}:${IMAGE_TAG}"
+#    container_name: peopleGroup61
+#    stdin_open: true
+#    tty: true
+#    volumes:
+#      - "./:${CONTAINER_VOLUME}"
+#    command: python main.py
+#    networks:
+#      - network-1
+#  g71:
+#    image: "${IMAGE_NAME}:${IMAGE_TAG}"
+#    container_name: peopleGroup71
+#    stdin_open: true
+#    tty: true
+#    volumes:
+#      - "./:${CONTAINER_VOLUME}"
+#    command: python main.py
+#    networks:
+#      - network-1
+#  g81:
+#    image: "${IMAGE_NAME}:${IMAGE_TAG}"
+#    container_name: peopleGroup81
+#    stdin_open: true
+#    tty: true
+#    volumes:
+#      - "./:${CONTAINER_VOLUME}"
+#    command: python main.py
+#    networks:
+#      - network-1
+#  g91:
+#    image: "${IMAGE_NAME}:${IMAGE_TAG}"
+#    container_name: peopleGroup91
+#    stdin_open: true
+#    tty: true
+#    volumes:
+#      - "./:${CONTAINER_VOLUME}"
+#    command: python main.py
+#    networks:
+#      - network-1
+#  g101:
+#    image: "${IMAGE_NAME}:${IMAGE_TAG}"
+#    container_name: peopleGroup101
+#    stdin_open: true
+#    tty: true
+#    volumes:
+#      - "./:${CONTAINER_VOLUME}"
+#    command: python main.py
+#    networks:
+#      - network-1
 #  v11:
 #    image: "${IMAGE_NAME}:${IMAGE_TAG}"
 #    container_name: video11

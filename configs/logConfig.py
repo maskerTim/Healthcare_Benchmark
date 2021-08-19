@@ -11,8 +11,8 @@ def config(filename='log.txt'):
     ch = logging.StreamHandler()
     ch.setLevel(logging.DEBUG)
     ch.setFormatter(formatter)
-    log_filename = filename
     # ----- logging to file -----
+    # log_filename = filename
     # fh = logging.FileHandler(log_filename, mode='w')
     # fh.setLevel(logging.DEBUG)
     # fh.setFormatter(formatter)

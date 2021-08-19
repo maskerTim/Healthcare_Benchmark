@@ -8,8 +8,8 @@ LABEL Maintainer="MaskerTim" \
 RUN apt update && \
     apt install net-tools ffmpeg libsm6 libxext6  -y
 
-RUN apt-get update \
-    &&  DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends tzdata
+RUN apt-get --allow-releaseinfo-change update \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends tzdata
 
 RUN TZ=Asia/Taipei \
     && ln -snf /usr/share/zoneinfo/$TZ /etc/localtime \
@@ -25,5 +25,3 @@ COPY ./requirement.txt .
 RUN pip install -r requirement.txt
 
 VOLUME ["/project"]
-
-# CMD ["bash"]

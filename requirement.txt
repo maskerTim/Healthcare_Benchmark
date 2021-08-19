@@ -3,6 +3,8 @@ argcomplete==1.12.3
 certifi==2021.5.30
 click==8.0.1
 multipledispatch==0.6.0
+numpy==1.21.1
+opencv-python==4.5.3.56
 packaging==21.0
 paho-mqtt==1.5.1
 pipx==0.16.3
