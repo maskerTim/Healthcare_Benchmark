@@ -1,4 +1,6 @@
 .idea
 log.txt
 .env
+benchmark
+*.log
 

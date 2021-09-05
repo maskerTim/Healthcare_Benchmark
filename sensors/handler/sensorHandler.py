@@ -1,6 +1,8 @@
-import logging
+from configs.logConfig import Logger
 import threading
 import os
+
+logger = Logger.instance()
 
 
 class SensorHandler:
@@ -38,17 +40,17 @@ class SensorHandler:
         """
         try:
             lock.acquire()
-            logging.info("{}, Take the lock".format(ID))
+            logger.info("{}, Take the lock".format(ID))
             self.sensorHandler.connect(ip, port, "mqttPub")
             self.sensorHandler.read(ID)
             self.sensorHandler.makeEvent(format)
             self.sensorHandler.send("{}/{}".format(os.getenv("MQTT_TOPIC_SENSOR_PREFIX"), self.sensorHandler.name))
         except Exception as e:
-            logging.error("Error: {}".format(e))
+            logger.error("Error: {}".format(e))
         finally:
             self.sensorHandler.close()
-            logging.info("{}, Close the connection".format(ID))
+            logger.info("{}, Close the connection".format(ID))
             lock.release()
-            logging.info("{}, Release the lock".format(ID))
+            logger.info("{}, Release the lock".format(ID))
             # time.sleep(sleep)
             threading.Timer(interval, sensor.execute, args=(ID, interval, ip, port, lock, sensor)).start()

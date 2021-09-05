@@ -1,6 +1,9 @@
-import logging
+from configs.logConfig import Logger
 from .actuator import Actuator
 import os
+
+logger = Logger.instance()
+
 
 class HeartActuator(Actuator):
     """ Actuator for heart rate"""
@@ -19,4 +22,4 @@ class HeartActuator(Actuator):
 
     @classmethod
     def do(cls):
-        logging.info("The Heart Actuator is executing...")
+        logger.info("The Heart Actuator is executing...")

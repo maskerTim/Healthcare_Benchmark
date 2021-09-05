@@ -3,6 +3,7 @@ from .models.bloodPressure import BloodPressure
 from .models.pulseOximeter import PulseOximeter
 from .models.foreheadTemperature import ForeheadTemperature
 
+
 def SensorFactory(sensor):
     """ Factory for making sensors """
     sensors = {

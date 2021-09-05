@@ -1,6 +1,8 @@
-import logging
+from configs.logConfig import Logger
 import threading
 from networks.networkSelector import NetworkSelector
+
+logger = Logger.instance()
 
 
 class Actuator:
@@ -15,7 +17,7 @@ class Actuator:
     def prepare(self, threadManager):
         """add actuator to thread manager"""
         threadManager.append(threading.Thread(target=self.do))
-        logging.info("The {} is added in thread list.".format(self.__class__))
+        logger.info("The {} is added in thread list.".format(self.__class__))
 
     def do(self):
         """take the action"""

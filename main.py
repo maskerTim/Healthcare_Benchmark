@@ -2,26 +2,22 @@
 import sys
 print(sys.path)
 """
+
 import os
-from configs import logConfig
 from sensors.sensorFactory import SensorFactory
 from sensors.group.sensorGroup import SensorGroup
-from dotenv import load_dotenv
 from videos.videoFactory import VideoFactory
 from videos.manager.videoManager import VideoManager
 from actuators.actuatorFactory import ActuatorFactory
 from actuators.group.actuatorGroup import ActuatorGroup
 
 if __name__ == '__main__':
-    """ the entry point of program """
-    logConfig.config()
-    load_dotenv()
     """ Sample of code for sensor benchmark """
     sensorHR = SensorFactory('HR')
     sensorHR.setInterval(5)
     sensorBP = SensorFactory('BP')
     sensorBP.setInterval(3)
-    patient1 = SensorGroup('Patient1', os.getenv("MQTT_BROKER_IP"), 1882)
+    patient1 = SensorGroup('Patient1', "192.168.0.194", 1883)
     patient1.setSensors([sensorHR, sensorBP])
     patient1.do()
     # """ Sample code for video benchmark """
@@ -30,13 +26,13 @@ if __name__ == '__main__':
     # VM1.createVideos(video)
     # VM1.start()
     """ Sample code for actuator benchmark """
-    actuatorHA = ActuatorFactory("HA")
-    actuatorBA = ActuatorFactory("BA")
-    actuatorVA = ActuatorFactory("VA")
-    AG1 = ActuatorGroup("Actuator1", os.getenv("MQTT_BROKER_IP"), 1881)
-    AG1.setActuators([actuatorHA, actuatorBA, actuatorVA])
-    AG1.do()
-    print('Main Finish')
+    # actuatorHA = ActuatorFactory("HA")
+    # actuatorBA = ActuatorFactory("BA")
+    # actuatorVA = ActuatorFactory("VA")
+    # AG1 = ActuatorGroup("Actuator1", os.getenv("MQTT_BROKER_IP"), 1881)
+    # AG1.setActuators([actuatorHA, actuatorBA, actuatorVA])
+    # AG1.do()
+    # print('Main Finish')
 
 
 

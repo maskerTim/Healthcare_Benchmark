@@ -5,7 +5,9 @@ print(__name__)
 from sensors.handler.sensorHandler import SensorHandler
 from sensors.exceptions.noSensors import NoSensorsError
 import threading
-import logging
+from configs.logConfig import Logger
+
+logger = Logger.instance()
 
 
 class SensorGroup:
@@ -42,7 +44,7 @@ class SensorGroup:
                                                           args=(
                                                           ID, sensor.getInterval(), self.ip, self.port, self.lock,
                                                           sensor)))
-            logging.info("{} is ready...".format(self.name))
+            logger.info("{} is ready...".format(self.name))
         else:
             raise NoSensorsError("Error: No sensors in group!!")
 
@@ -51,4 +53,4 @@ class SensorGroup:
         self.setup()
         for t in self.threadManager:
             t.start()
-        logging.info("{} is running...".format(self.name))
+        logger.info("{} is running...".format(self.name))

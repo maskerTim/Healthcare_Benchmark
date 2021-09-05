@@ -1,9 +1,13 @@
-import logging
+from configs.logConfig import Logger
 from networks.networkSelector import NetworkSelector
 from multipledispatch import dispatch
 
+logger = Logger.instance()
+
+
 class Sensor:
     """ Abstract class of sensor"""
+
     def __init__(self):
         # ID and value is set by read function
         self.ID = None
@@ -51,10 +55,10 @@ class Sensor:
         """
         ns = NetworkSelector(protocol)
         self.protocol = protocol
-        if "socket"==protocol:
+        if "socket" == protocol:
             self.socket = ns.createSocket()
             self.socket.connect((ip, port))
-        elif "mqttPub"==protocol:
+        elif "mqttPub" == protocol:
             self.socket = ns.createPublisher()
             self.socket.connect(ip, port)
 
@@ -63,9 +67,9 @@ class Sensor:
         close:
             @desc close the connection
         """
-        if "socket"==self.protocol:
+        if "socket" == self.protocol:
             self.socket.close()
-        elif "mqttPub"==self.protocol:
+        elif "mqttPub" == self.protocol:
             self.socket.disconnect()
 
     @dispatch()
@@ -75,7 +79,7 @@ class Sensor:
             @desc send the event to server/some machine
         """
         self.socket.send(self.event.encode(encoding="utf-8"))
-        logging.info("Event: {}".format(self.event))
+        logger.info("Event: {}".format(self.event))
 
     @dispatch(str)
     def send(self, topic):
@@ -85,4 +89,4 @@ class Sensor:
             @param {topic: the topic of mqtt}
         """
         self.socket.publish(topic, self.event.encode(encoding="utf-8"))
-        logging.info("Event: {}".format(self.event))
+        logger.info("Event: {}".format(self.event))
