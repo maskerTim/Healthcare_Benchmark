@@ -16,6 +16,7 @@ IMAGE_TAG=[Docker Image Tag]
 MQTT_TOPIC_SENSOR_PREFIX=[Sensor Prefix Topic Name]
 MQTT_TOPIC_VIDEO_PREFIX=[Video Prefix Topic Name]
 MQTT_TOPIC_ACTUATOR_PREFIX=[Actuator Prefix Topic Name]
+CONTAINER_VOLUME=/project
 ```
 #### Dockerfile
 Please make the `Dockerfile` file to make the docker image.<br>
@@ -90,3 +91,66 @@ networks:
       name: [Docker Network Name]
 
 ```
+
+# How to start
+1. Please build the dockerfile first.
+    * `docker build -t $your_tag_name . $your_image_name` 
+2. Set your environment variable in `.env`.
+3. Change your ip address and port according your network configuration in `main.py`.
+    * sample code
+        ```
+        sensorHR = SensorFactory('HR')
+        sensorHR.setInterval(5)
+        sensorBP = SensorFactory('BP')
+        sensorBP.setInterval(3)
+        patient1 = SensorGroup('Patient1', $your_ip, $your_port)
+        patient1.setSensors([sensorHR, sensorBP])
+        patient1.do()
+        ```
+4. Default network protocol is MQTT.
+5. If you want to config different sensor attached with person, you can create a sensor by `SensorFactory` class. The sensor name is written in `SensorFactory` file. 
+    * sample code
+        ```
+        sensor1 = SensorFactory($sensor_name)
+        sensor1.setInterval(5)
+        sensor2 = SensorFactory($sensor_name)
+        sensor2.setInterval(3)
+        patient1 = SensorGroup('Patient1', $your_ip, $your_port)
+        patient1.setSensors([sensor1, sensor2])
+        patient1.do()
+        ```
+    * SensorFactory class: `HR`-HeartRate, `BP`-BloodPressure, and `PO`-PulseOximeter are the different sensor type. 
+        ```
+        def SensorFactory(sensor):
+            """ Factory for making sensors """
+            sensors = {
+                "HR": HeartRate(),
+                "BP": BloodPressure(),
+                "PO": PulseOximeter(),
+                "FT": ForeheadTemperature()
+            }
+            return sensors[sensor]
+        ```
+6. The docker-compose can config by yourself, a container running can regard as person is detected the healthcare metrics by different healthcare sensors.
+    * sample code
+    ```
+    version: "3.9"
+    services:
+      [Container Name]: # can be regarded as person
+        image: "${IMAGE_NAME}:${IMAGE_TAG}" # set which image you want to use
+        container_name: [Container Name] # set container name
+        stdin_open: true
+        tty: true
+        volumes:    # host volume defaults './', and container volume defaults '/project' 
+          - "${HOST_VOLUME}:${CONTAINER_VOLUME}"
+        command: python main.py    # run a program
+        networks:    # set virtual network for container
+          - network-1
+    ```
+7. All configuration finish, let's run the application. Use `docker-compose up -d
+
+# Contributor
+
+| Name           |                 Agency                  |                Github                | Email                  |
+| -------------- |:---------------------------------------:|:------------------------------------:| ---------------------- |
+| Hao-Ying Cheng | National Taipei Unversity of Technology | [Link](https://github.com/maskerTim) | t109598001@ntut.org.tw |
