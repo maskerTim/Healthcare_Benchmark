@@ -12,6 +12,7 @@ from actuators.actuatorFactory import ActuatorFactory
 from actuators.group.actuatorGroup import ActuatorGroup
 
 if __name__ == '__main__':
+    load_dotenv()
     """ Sample of code for sensor benchmark """
     sensorHR = SensorFactory('HR')
     sensorHR.setInterval(5)
